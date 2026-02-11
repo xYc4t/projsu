@@ -2,7 +2,7 @@
 session_start();
 mysqli_report(MYSQLI_REPORT_OFF);
 
-$base = "/ye";
+$base = "/test";
 
 echo "<link rel='stylesheet' href='$base/style_ji.css'>";
 
@@ -31,7 +31,7 @@ function ensure_guest() {
 }
 
 function open() {
-    $conn = mysqli_connect("localhost", "root", "", "simdb_alat_ji");
+    $conn = mysqli_connect("localhost", "root", "", "simdb_test");
     if (!$conn) {
         die("Connection failed: " . mysqli_connect_error());
     }
@@ -112,7 +112,7 @@ function call_sp($sp_name, $params = [], $out_params = []) {
 
 /**
  * Generic logging function - uses the new sp_log_insert_ji procedure
- * 
+ *
  * @param int $user_id The ID of the user performing the action
  * @param string $action Description of the action being logged
  * @return array Result of the operation
@@ -127,14 +127,14 @@ function log_action($user_id, $action) {
 /**
  * Get the image path for an alat (equipment)
  * First checks database for image filename, then falls back to filesystem check
- * 
+ *
  * @param int $alat_id The ID of the alat
  * @return string The relative path to the image
  */
 function get_alat_image($alat_id) {
     global $base;
     $img_dir = $base . "/img/";
-    
+
     // First check database for image filename
     $result = db_select("SELECT image_alat_ji FROM alat_ji WHERE id_alat_ji = ?", "i", $alat_id);
     if ($result && $row = mysqli_fetch_assoc($result)) {
@@ -143,7 +143,7 @@ function get_alat_image($alat_id) {
             return $img_dir . $db_image;
         }
     }
-    
+
     // Fallback: check filesystem for alat_{id}.{ext} pattern
     $extensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
     foreach ($extensions as $ext) {
@@ -152,7 +152,7 @@ function get_alat_image($alat_id) {
             return $filepath;
         }
     }
-    
+
     // Return default if no image found
     return $img_dir . 'alat_default.jpg';
 }
