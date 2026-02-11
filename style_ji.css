@@ -1,0 +1,921 @@
+@font-face {
+	font-family: 'JetBrains Mono';
+	src: url(./JetBrainsMono.ttf);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'JetBrains Mono', 'Courier New', 'Consolas', monospace;
+    background: #0a0a0a;
+    color: #f0f0f0;
+    min-height: 100vh;
+    padding: 20px;
+    line-height: 1.6;
+}
+
+/* Container */
+body > * {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+    margin-bottom: 15px;
+    font-weight: normal;
+    letter-spacing: 0.5px;
+}
+
+h2::before {
+    content: '## ';
+    color: #666;
+}
+
+h3::before {
+    content: '### ';
+    color: #666;
+}
+
+h4::before {
+    content: '#### ';
+    color: #666;
+}
+
+/* Links */
+a {
+    color: #ffffff;
+    text-decoration: none;
+    border-bottom: 1px solid #ffffff;
+    transition: all 0.2s ease;
+}
+
+a:hover {
+    background: #ffffff;
+    color: #0a0a0a !important;
+    padding: 2px 4px;
+}
+
+/* Back Link */
+body > a:first-child,
+.no-print > a {
+    display: inline-block;
+    margin-bottom: 20px;
+    padding: 8px 16px;
+    background: transparent;
+    border: 1px solid #ffffff;
+}
+
+body > a:first-child:hover,
+.no-print > a:hover {
+    background: #ffffff;
+    color: #0a0a0a;
+}
+
+/* Forms */
+form {
+    background: transparent;
+    padding: 15px 0;
+    margin-bottom: 20px;
+    border-top: 1px solid #333;
+    border-bottom: 1px solid #333;
+}
+
+/* Form Labels */
+label {
+    display: inline-block;
+    margin-right: 15px;
+    margin-bottom: 10px;
+    font-weight: normal;
+}
+
+label::before {
+    content: '> ';
+    color: #888;
+}
+
+/* Input Fields */
+input[type="text"],
+input[type="password"],
+input[type="number"],
+input[type="date"],
+select {
+    background: #0a0a0a;
+    color: #f0f0f0;
+    padding: 8px 12px;
+    border: 1px solid #444;
+    font-family: 'Courier New', 'Consolas', monospace;
+    font-size: 14px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus,
+select:focus {
+    outline: none;
+    border-color: #ffffff;
+    background: #1a1a1a;
+}
+
+/* Placeholder */
+input::placeholder {
+    color: #666;
+}
+
+/* Buttons */
+button,
+input[type="submit"] {
+    background: transparent;
+    color: #ffffff;
+    padding: 8px 16px;
+    border: 1px solid #ffffff;
+    cursor: pointer;
+    font-family: 'Courier New', 'Consolas', monospace;
+    font-size: 14px;
+    margin-right: 5px;
+    transition: all 0.2s ease;
+}
+
+button:hover,
+input[type="submit"]:hover {
+    background: #ffffff;
+    color: #0a0a0a;
+}
+
+button:active,
+input[type="submit"]:active {
+    background: #cccccc;
+}
+
+/* Primary Action Buttons */
+input[type="submit"][value="Tambah"],
+input[type="submit"][value="Simpan"],
+input[type="submit"][value="Login"],
+input[type="submit"][value="Register"],
+input[type="submit"][value="Setujui"],
+input[type="submit"][value="Selesaikan Peminjaman"],
+input[type="submit"][value="Ajukan Peminjaman"],
+input[type="submit"][value="Filter"],
+input[type="submit"][value="Cari"],
+input[type="submit"][value="Generate Laporan"] {
+    border-color: #4a9eff;
+    color: #4a9eff;
+}
+
+input[type="submit"][value="Tambah"]:hover,
+input[type="submit"][value="Simpan"]:hover,
+input[type="submit"][value="Login"]:hover,
+input[type="submit"][value="Register"]:hover,
+input[type="submit"][value="Setujui"]:hover,
+input[type="submit"][value="Selesaikan Peminjaman"]:hover,
+input[type="submit"][value="Ajukan Peminjaman"]:hover,
+input[type="submit"][value="Filter"]:hover,
+input[type="submit"][value="Cari"]:hover,
+input[type="submit"][value="Generate Laporan"]:hover {
+    background: #4a9eff;
+    color: #0a0a0a;
+}
+
+/* Warning/Neutral Buttons */
+input[type="submit"][value="Aktifkan"],
+input[type="submit"][value="Kembalikan Alat"],
+input[type="submit"][value="Verifikasi"] {
+    border-color: #ffa500;
+    color: #ffa500;
+}
+
+input[type="submit"][value="Aktifkan"]:hover,
+input[type="submit"][value="Kembalikan Alat"]:hover,
+input[type="submit"][value="Verifikasi"]:hover {
+    background: #ffa500;
+    color: #0a0a0a;
+}
+
+/* Danger/Destructive Buttons */
+input[type="submit"][value="Hapus"],
+input[type="submit"][value="Nonaktifkan"],
+input[type="submit"][value="Tolak"],
+input[type="submit"][value="Batalkan"],
+input[type="submit"][value="Disable"] {
+    border-color: #ff4444;
+    color: #ff4444;
+}
+
+input[type="submit"][value="Hapus"]:hover,
+input[type="submit"][value="Nonaktifkan"]:hover,
+input[type="submit"][value="Tolak"]:hover,
+input[type="submit"][value="Batalkan"]:hover,
+input[type="submit"][value="Disable"]:hover {
+    background: #ff4444;
+    color: #0a0a0a;
+}
+
+/* Secondary/Reset Buttons */
+input[type="submit"][value="Clear"],
+a[href*="Reset"],
+a[href$=".php"]:not([href*="logout"]) {
+    border-color: #666;
+    color: #999;
+}
+
+input[type="submit"][value="Clear"]:hover,
+a[href*="Reset"]:hover {
+    background: #666;
+    color: #0a0a0a;
+}
+
+/* Logout Link */
+a[href*="logout"] {
+    border-color: #ff4444;
+    color: #ff4444;
+}
+
+a[href*="logout"]:hover {
+    background: #ff4444;
+    color: #0a0a0a;
+}
+
+/* Print Button */
+button[onclick*="print"] {
+    border-color: #4a9eff;
+    color: #4a9eff;
+}
+
+button[onclick*="print"]:hover {
+    background: #4a9eff;
+    color: #0a0a0a;
+}
+
+/* Tables */
+table {
+    width: 100%;
+    background: transparent;
+    border-collapse: collapse;
+    /* border: 1px solid #333; */
+    margin-bottom: 20px;
+}
+
+th {
+    background: #1a1a1a;
+    color: #ffffff;
+    padding: 12px;
+    text-align: left;
+    font-weight: normal;
+    border: 1px solid #333;
+}
+
+th::before {
+    content: '# ';
+    color: #666;
+}
+
+td {
+    padding: 10px 12px;
+    border: 1px solid #222;
+    color: #cccccc;
+}
+
+tr:hover {
+    background: #151515;
+}
+
+/* Table Row with Background Color (Stock Warning) */
+tr[style*="background-color: #ffcccc"] {
+    background: #2a1515 !important;
+}
+
+tr[style*="background-color: #ffcccc"]:hover {
+    background: #3a1a1a !important;
+}
+
+/* Status Indicators in Tables */
+td:contains("Aktif"),
+td:has(+ td:contains("Aktif")) {
+    color: #4aff4a;
+}
+
+td:contains("Nonaktif") {
+    color: #ff4444;
+}
+
+td:contains("TERLAMBAT") {
+    color: #ff4444;
+    font-weight: bold;
+}
+
+td:contains("Menunggu verifikasi petugas"),
+td:contains("Menunggu Verifikasi") {
+    color: #ffa500;
+    font-weight: bold;
+}
+
+td:contains("diajukan") {
+    color: #ffa500;
+}
+
+td:contains("dipinjam") {
+    color: #4a9eff;
+}
+
+td:contains("dikembalikan") {
+    color: #ffa500;
+}
+
+td:contains("selesai") {
+    color: #4aff4a;
+}
+
+td:contains("ditolak"),
+td:contains("dibatalkan") {
+    color: #ff4444;
+}
+
+/* Stock Warning Text */
+strong[style*="color: red"] {
+    color: #ff4444 !important;
+    font-weight: bold;
+}
+
+/* Table Forms */
+table form {
+    padding: 0;
+    margin: 0;
+    background: transparent;
+    border: none;
+}
+
+table input[type="text"],
+table input[type="password"],
+table input[type="number"],
+table input[type="date"],
+table select {
+    width: 100%;
+    margin: 0;
+    background: transparent;
+    border: 1px solid #333;
+}
+
+table input[type="text"]:focus,
+table input[type="password"]:focus,
+table input[type="number"]:focus,
+table input[type="date"]:focus,
+table select:focus {
+    background: #1a1a1a;
+}
+
+table button,
+table input[type="submit"] {
+    padding: 6px 12px;
+    font-size: 13px;
+    margin: 2px;
+}
+
+/* Message/Alert Boxes */
+.message {
+    padding: 15px;
+    border: 1px solid #444;
+    margin-bottom: 15px;
+    transition: opacity 0.5s ease;
+}
+
+.message::before {
+    content: '[!] ';
+    font-weight: bold;
+}
+
+/* Success Messages */
+.message.success,
+div.message.success {
+    border-color: #4aff4a;
+    color: #4aff4a;
+    background: #0a2a0a;
+}
+
+/* Error Messages */
+.message.error,
+div.message.error,
+p[style*="color: red"] {
+    border-color: #ff4444 !important;
+    color: #ff4444 !important;
+    background: #2a0a0a;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+p[style*="color: red"]::before {
+    content: '[!] ';
+    font-weight: bold;
+}
+
+/* Info Messages */
+.message.info {
+    border-color: #4a9eff;
+    color: #4a9eff;
+    background: #0a1a2a;
+}
+
+/* Warning Messages */
+.message.warning {
+    border-color: #ffa500;
+    color: #ffa500;
+    background: #2a1a0a;
+}
+
+/* Login/Register Pages */
+body:has(input[value="Login"]),
+body:has(input[value="Register"]) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+body:has(input[value="Login"]) form,
+body:has(input[value="Register"]) form {
+    max-width: 400px;
+    border: 1px solid #ffffff;
+    padding: 30px;
+    margin-bottom: 20px;
+}
+
+body:has(input[value="Login"]) form::before,
+body:has(input[value="Register"]) form::before {
+    content: '─────────────────────────────';
+    display: block;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+body:has(input[value="Login"]) form input,
+body:has(input[value="Register"]) form input {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+body:has(input[value="Login"]) form input[type="submit"],
+body:has(input[value="Register"]) form input[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+}
+
+/* Home Page */
+body:has(a[href*="logout"]) {
+    padding: 40px;
+}
+
+/* Select Dropdown */
+select {
+    appearance: none;
+    background-image: url('data:image/svg+xml;charset=UTF-8,<svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L6 6L11 1" stroke="%23ffffff" stroke-width="2"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding-right: 30px;
+}
+
+select option {
+    background: #0a0a0a;
+    color: #f0f0f0;
+}
+
+/* Date Picker Icon Issue Thingy -_- */
+input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    cursor: pointer;
+}
+
+input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-clear-button {
+    filter: invert(1);
+}
+
+/* Number Input Arrows */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    filter: invert(1);
+    opacity: 1;
+}
+
+/* Checkbox & Radio Buttons */
+input[type="checkbox"],
+input[type="radio"] {
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 1px solid #ffffff;
+    background: transparent;
+    cursor: pointer;
+    position: relative;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+input[type="checkbox"]:checked::before {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #ffffff;
+    font-size: 14px;
+}
+
+input[type="radio"] {
+    border-radius: 50%;
+}
+
+input[type="radio"]:checked::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 8px;
+    height: 8px;
+    background: #ffffff;
+    border-radius: 50%;
+}
+
+input[type="checkbox"]:hover,
+input[type="radio"]:hover {
+    border-color: #cccccc;
+}
+
+/* Textarea */
+textarea {
+    background: #0a0a0a;
+    color: #f0f0f0;
+    padding: 8px 12px;
+    border: 1px solid #444;
+    font-family: 'Courier New', 'Consolas', monospace;
+    font-size: 14px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    resize: vertical;
+    min-height: 100px;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: #ffffff;
+    background: #1a1a1a;
+}
+
+textarea::placeholder {
+    color: #666;
+}
+
+/* Fieldset & Legend */
+fieldset {
+    border: 1px solid #333;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+legend {
+    color: #ffffff;
+    padding: 0 10px;
+    font-weight: normal;
+}
+
+legend::before {
+    content: '[ ';
+    color: #666;
+}
+
+legend::after {
+    content: ' ]';
+    color: #666;
+}
+
+/* Horizontal Rule */
+hr {
+    border: none;
+    border-top: 1px solid #333;
+    margin: 20px 0;
+}
+
+/* Lists */
+ul, ol {
+    margin-left: 20px;
+    margin-bottom: 15px;
+}
+
+li {
+    margin-bottom: 5px;
+}
+
+ul li::marker {
+    content: '▸ ';
+    color: #666;
+}
+
+/* Disabled State */
+input:disabled,
+select:disabled,
+textarea:disabled,
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    border-color: #333;
+}
+
+/* Print Styles */
+@media print {
+    body {
+        background: white;
+        color: black;
+    }
+
+    .no-print {
+        display: none !important;
+    }
+
+    table {
+        border-color: #000;
+    }
+
+    th, td {
+        border-color: #000;
+        color: #000;
+    }
+
+    a {
+        color: #000;
+        text-decoration: none;
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+        font-size: 13px;
+    }
+
+    table {
+        font-size: 11px;
+        overflow-x: auto;
+        display: block;
+    }
+
+    th, td {
+        padding: 6px;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="number"],
+    input[type="date"],
+    select {
+        font-size: 12px;
+        padding: 6px;
+    }
+
+    button,
+    input[type="submit"] {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+
+    body:has(input[value="Login"]) form,
+    body:has(input[value="Register"]) form {
+        padding: 20px;
+        max-width: 90%;
+    }
+}
+
+/* Animation */
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+.message.fade-out {
+    animation: fadeOut 0.5s ease;
+}
+
+/* Utility Classes */
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.mb-10 {
+    margin-bottom: 10px;
+}
+
+.mb-20 {
+    margin-bottom: 20px;
+}
+
+.mt-10 {
+    margin-top: 10px;
+}
+
+.mt-20 {
+    margin-top: 20px;
+}
+
+/* Color Utility Classes */
+.text-success {
+    color: #4aff4a;
+}
+
+.text-error {
+    color: #ff4444;
+}
+
+.text-warning {
+    color: #ffa500;
+}
+
+.text-info {
+    color: #4a9eff;
+}
+
+.text-muted {
+    color: #666;
+}
+
+/* Border Utilities */
+.border-success {
+    border-color: #4aff4a !important;
+}
+
+.border-error {
+    border-color: #ff4444 !important;
+}
+
+.border-warning {
+    border-color: #ffa500 !important;
+}
+
+.border-info {
+    border-color: #4a9eff !important;
+}
+
+/* Card Grid Layout for Ajukan Peminjaman */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+    margin: 20px 0;
+}
+
+.alat-card {
+    background: #0f0f0f;
+    border: 1px solid #333;
+    padding: 20px;
+    transition: border-color 0.2s ease;
+}
+
+.alat-card:hover {
+    border-color: #4a9eff;
+}
+
+.card-header {
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #222;
+}
+
+.card-header h3 {
+    font-size: 16px;
+    margin: 0 0 8px 0;
+    color: #ffffff;
+}
+
+.card-header h3::before {
+    content: '';
+}
+
+.card-kategori {
+    display: inline-block;
+    font-size: 11px;
+    color: #888;
+    padding: 3px 8px;
+    border: 1px solid #444;
+    background: #0a0a0a;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.stock-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 12px;
+    background: #0a0a0a;
+    border: 1px solid #333;
+}
+
+.stock-label {
+    color: #888;
+    font-size: 13px;
+}
+
+.stock-value {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.stock-value.stock-ok {
+    color: #4aff4a;
+}
+
+.stock-value.stock-low {
+    color: #ffa500;
+}
+
+.stock-value.stock-empty {
+    color: #ff4444;
+}
+
+.card-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 0;
+    margin: 0;
+    border: none;
+    background: transparent;
+}
+
+.form-group-inline {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.form-group-inline label {
+    flex: 0 0 80px;
+    margin: 0;
+    font-size: 13px;
+    color: #aaa;
+}
+
+.form-group-inline label::before {
+    content: '';
+}
+
+.form-group-inline input {
+    flex: 1;
+    margin: 0;
+    font-size: 13px;
+}
+
+.card-submit {
+    margin-top: 5px;
+    width: 100%;
+    padding: 10px;
+}
+
+.stock-empty-notice {
+    text-align: center;
+    padding: 15px;
+    color: #ff4444;
+    border: 1px solid #ff4444;
+    background: #1a0a0a;
+    font-size: 13px;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 40px;
+    color: #666;
+    font-size: 14px;
+}
+
+@media (max-width: 768px) {
+    .card-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-group-inline {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 5px;
+    }
+
+    .form-group-inline label {
+        flex: none;
+    }
+}
