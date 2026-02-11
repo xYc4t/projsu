@@ -24,15 +24,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 $filter_status = isset($_GET['status']) ? $_GET['status'] : '';
 
-// Get batches
-$sql_batch = "SELECT b.*, u.username_user_ji,
+// Get batches with responder info
+$sql_batch = "SELECT b.*, u_req.username_user_ji as peminjam,
+              u_res.username_user_ji as petugas,
               COUNT(p.id_pinjam_ji) as total_items,
               SUM(CASE WHEN p.status_pinjam_ji = 'dipinjam' THEN 1 ELSE 0 END) as items_dipinjam,
               SUM(CASE WHEN p.status_pinjam_ji = 'diajukan' THEN 1 ELSE 0 END) as items_pending,
               SUM(CASE WHEN p.status_pinjam_ji = 'ditolak' THEN 1 ELSE 0 END) as items_ditolak,
               SUM(CASE WHEN p.status_pinjam_ji = 'selesai' THEN 1 ELSE 0 END) as items_selesai
               FROM pinjam_batch_ji b
-              JOIN user_ji u ON b.user_req_batch_ji = u.id_user_ji
+              JOIN user_ji u_req ON b.user_req_batch_ji = u_req.id_user_ji
+              LEFT JOIN user_ji u_res ON b.user_res_batch_ji = u_res.id_user_ji
               LEFT JOIN pinjam_ji p ON b.id_batch_ji = p.batch_pinjam_ji
               WHERE b.user_req_batch_ji = ?";
 
@@ -85,6 +87,16 @@ $batches = db_select($sql_batch, $types, ...$params);
         .batch-date {
             color: #888;
             font-size: 13px;
+        }
+        
+        .batch-petugas {
+            color: #666;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+        
+        .batch-petugas strong {
+            color: #4a9eff;
         }
         
         .batch-status {
@@ -205,6 +217,16 @@ $batches = db_select($sql_batch, $types, ...$params);
                         Diajukan: <?= date('d M Y H:i', strtotime($batch["created_at_ji"])) ?> | 
                         Periode: <?= date('d M', strtotime($batch["d_awal_batch_ji"])) ?> - <?= date('d M Y', strtotime($batch["d_akhir_batch_ji"])) ?>
                     </div>
+                    <?php if ($batch["petugas"]): ?>
+                    <div class="batch-petugas">
+                        Diproses oleh: <strong><?= htmlspecialchars($batch["petugas"]) ?></strong>
+                        <?php if ($batch["status_batch_ji"] === 'disetujui'): ?>
+                            (Disetujui)
+                        <?php elseif ($batch["status_batch_ji"] === 'ditolak'): ?>
+                            (Ditolak)
+                        <?php endif; ?>
+                    </div>
+                    <?php endif; ?>
                 </div>
                 <div class="batch-status <?= $batch["status_batch_ji"] ?>">
                     <?= strtoupper($batch["status_batch_ji"]) ?>

@@ -81,16 +81,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 $search = isset($_GET['search']) ? $_GET['search'] : '';
 
 // Get pending batches with their items
-$sql = "SELECT b.*, u.username_user_ji,
+$sql = "SELECT b.*, u_req.username_user_ji as peminjam,
         COUNT(p.id_pinjam_ji) as total_items
         FROM pinjam_batch_ji b
-        JOIN user_ji u ON b.user_req_batch_ji = u.id_user_ji
+        JOIN user_ji u_req ON b.user_req_batch_ji = u_req.id_user_ji
         LEFT JOIN pinjam_ji p ON b.id_batch_ji = p.batch_pinjam_ji 
             AND p.status_pinjam_ji = 'diajukan'
         WHERE b.status_batch_ji = 'diajukan'";
 
 if ($search) {
-    $sql .= " AND u.username_user_ji LIKE ?";
+    $sql .= " AND u_req.username_user_ji LIKE ?";
     $sql .= " GROUP BY b.id_batch_ji HAVING COUNT(p.id_pinjam_ji) > 0 ORDER BY b.created_at_ji";
     $batches = db_select($sql, "s", "%$search%");
 } else {
@@ -229,7 +229,7 @@ if ($search) {
             <div class="batch-header">
                 <div class="batch-info">
                     <div class="batch-id">Batch #<?= $batch["id_batch_ji"] ?></div>
-                    <div class="batch-user">Peminjam: <?= htmlspecialchars($batch["username_user_ji"]) ?></div>
+                    <div class="batch-user">Peminjam: <?= htmlspecialchars($batch["peminjam"]) ?></div>
                     <div class="batch-date">
                         Diajukan: <?= date('d M Y H:i', strtotime($batch["created_at_ji"])) ?> | 
                         Periode: <?= date('d M', strtotime($batch["d_awal_batch_ji"])) ?> - <?= date('d M Y', strtotime($batch["d_akhir_batch_ji"])) ?> |
